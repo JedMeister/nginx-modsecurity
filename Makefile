@@ -55,12 +55,6 @@ install:
 	@echo 
 
 	./install.sh
-	// -d $(PATH_BIN) $(PATH_INSTALL_LIB)
-	// cp *.py $(PATH_INSTALL_LIB)
-
-	//$(call with-py-executables, \
-	//  ln -fs $(call libpath, $$module) $(PATH_BIN)/$(progname), \
-	//  ln -fs $(call libpath, $$module) $(PATH_BIN)/$(call subcommand, $$module))
 
 uninstall:
 	rm -rf $(PATH_INSTALL_LIB)
