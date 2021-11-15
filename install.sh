@@ -4,14 +4,15 @@
 BUILD_DIR=modsec_build
 mkdir -p $BUILD_DIR
 
-CODENAME=$(lsb_release -sc)
-# enable src repo, install deps and download nginx source
-cat > /etc/apt/sources.list.d/src.sources.list <<EOF
-# Debian source package repos
-deb-src http://deb.debian.org/debian $CODENAME main
-EOF
-apt-get update
-DEBIAN_FRONTEND=noninteractive apt-get source nginx
+# download and unpack source package 
+NGINX_VER=$(apt-cache policy nginx | grep Installed: | sed "s|^.*: \([1-9]\.[0-9].*\)|\1|")
+URL=https://deb.debian.org/debian/pool/main/n/nginx #nginx_1.18.0-6.1.dsc
+wget $URL/nginx_${NGINX_VER}.dsc
+FILES=$(grep "Files:" -A3 nginx_${NGINX_VER}.dsc | tail -3 | sed "s|.*nginx|nginx|")
+for dl_file in $FILES; do
+    wget $URL/$dl_file
+done
+dpkg-source -x nginx_${NGINX_VER}.ds
 
 # collect default Debian build options and tweak as required
 OPTS=$(/usr/sbin/nginx -V 2>&1 | \
@@ -26,7 +27,7 @@ OPTS=$(echo "$OPTS" | grep -v -- ^--with-ld-opt)
 # https://github.com/SpiderLabs/ModSecurity-nginx/issues/117
 OPTS=$(echo "$OPTS" | grep -v -- ^--add-dynamic-module)
 
-# clone req'd repo and compile, setup and enable nginx modsecurity
+# clone reqd repo and compile, setup and enable nginx modsecurity
 git clone --depth 1 https://github.com/SpiderLabs/ModSecurity-nginx.git
 cd nginx-1.*
 ./configure --with-cc-opt="$CC_OPTS" --with-ld-opt="$LD_OPTS" $OPTS \
