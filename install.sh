@@ -6,7 +6,7 @@ mkdir -p $BUILD_DIR
 
 # download and unpack source package 
 NGINX_VER=$(apt-cache policy nginx | grep Installed: | sed "s|^.*: \([1-9]\.[0-9].*\)|\1|")
-URL=https://deb.debian.org/debian/pool/main/n/nginx #nginx_1.18.0-6.1.dsc
+URL=http://deb.debian.org/debian/pool/main/n/nginx
 wget $URL/nginx_${NGINX_VER}.dsc
 FILES=$(grep "Files:" -A3 nginx_${NGINX_VER}.dsc | tail -3 | sed "s|.*nginx|nginx|")
 for dl_file in $FILES; do
