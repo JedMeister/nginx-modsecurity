@@ -1,0 +1,23 @@
+Source: nginx-modsecurity
+Section: misc
+Priority: optional
+Maintainer: Jeremy Davis <jeremy@turnkeylinux.org>
+Build-Depends:
+ debhelper (>= 10),
+ dh-exec,
+ libmodsecurity3,
+ build-essential,
+ libmodsecurity-dev,
+ libpcre3-dev,
+ libxslt1-dev,
+ libgd-dev,
+ libgeoip-dev,
+ libssl-dev
+Standards-Version: 4.0.0
+
+Package: libnginx-modsecruity
+Architecture: amd64
+Depends:
+ libmodsecurity3
+ ${misc:Depends},
+Description: Nginx modsecurity - packaged by TurnKey GNU/Linux
