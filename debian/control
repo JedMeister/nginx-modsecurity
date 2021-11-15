@@ -6,6 +6,8 @@ Build-Depends:
  debhelper (>= 10),
  dh-exec,
  libmodsecurity3,
+ nginx,
+ wget,
  build-essential,
  libmodsecurity-dev,
  libpcre3-dev,
