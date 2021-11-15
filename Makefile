@@ -1,3 +1,4 @@
+# standard Python project Makefile
 progname = $(shell awk '/^Source/ {print $$2}' debian/control)
 name=
 
@@ -25,6 +26,8 @@ help:
 	@echo '=== Targets:'
 	@echo 'install   [ prefix=path/to/usr ] # default: prefix=$(value prefix)'
 	@echo 'uninstall [ prefix=path/to/usr ]'
+	@echo
+	@echo 'clean'
 
 # DRY macros
 debbuild=debian/$(shell awk '/^Package/ {print $$2}' debian/control)
@@ -54,13 +57,12 @@ install:
 	@echo \*\* CONFIG: prefix = $(prefix) \*\*
 	@echo 
 
-	./install.sh
-	// -d $(PATH_BIN) $(PATH_INSTALL_LIB)
-	// cp *.py $(PATH_INSTALL_LIB)
+	install -d $(PATH_BIN) $(PATH_INSTALL_LIB)
+	cp *.py $(PATH_INSTALL_LIB)
 
-	//$(call with-py-executables, \
-	//  ln -fs $(call libpath, $$module) $(PATH_BIN)/$(progname), \
-	//  ln -fs $(call libpath, $$module) $(PATH_BIN)/$(call subcommand, $$module))
+	$(call with-py-executables, \
+	  ln -fs $(call libpath, $$module) $(PATH_BIN)/$(progname), \
+	  ln -fs $(call libpath, $$module) $(PATH_BIN)/$(call subcommand, $$module))
 
 uninstall:
 	rm -rf $(PATH_INSTALL_LIB)
@@ -68,3 +70,6 @@ uninstall:
 	$(call with-py-executables, \
 	  rm -f $(PATH_BIN)/$(progname), \
 	  rm -f $(PATH_BIN)/$(call subcommand, $$module))
+
+clean:
+	rm -f *.pyc
