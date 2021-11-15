@@ -34,14 +34,16 @@ cd nginx-1.*
     --add-dynamic-module=../ModSecurity-nginx
 make modules
 cd ..
+
 mkdir -p etc/nginx/{modules-available,modsec}
-cp nginx-1.*/objs/ngx_http_modsecurity_module.so etc/nginx/modules-available/
+mkdir -p usr/lib/libnginx-modsecurity
+
+cp nginx-1.*/objs/ngx_http_modsecurity_module.so usr/lib/libnginx-modsecurity/
 cat > etc/nginx/modules-available/modsecurity.conf <<EOF
-load_module /etc/nginx/modules-available/ngx_http_modsecurity_module.so;
+load_module /usr/lib/libnginx-modsecurity/ngx_http_modsecurity_module.so;
 modsecurity on;
 modsecurity_rules_file /etc/nginx/modsec/main.conf;
 EOF
-#ln -sf /etc/nginx/modules-available/modsecurity.conf /etc/nginx/modules-enabled/
 curl -o etc/nginx/modsec/modsecurity.conf \
     https://raw.githubusercontent.com/SpiderLabs/ModSecurity/v3/master/modsecurity.conf-recommended
 curl -o etc/nginx/modsec/unicode.mapping \
