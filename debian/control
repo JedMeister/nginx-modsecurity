@@ -8,6 +8,7 @@ Build-Depends:
  libmodsecurity3,
  nginx-light,
  curl,
+ ca-certificates,
  build-essential,
  libmodsecurity-dev,
  libpcre3-dev,
