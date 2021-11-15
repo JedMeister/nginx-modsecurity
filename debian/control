@@ -22,5 +22,6 @@ Package: libnginx-modsecurity
 Architecture: amd64
 Depends:
  libmodsecurity3
+ nginx | nginx-light | nginx-full,
  ${misc:Depends},
 Description: Nginx modsecurity - packaged by TurnKey GNU/Linux
