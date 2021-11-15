@@ -15,7 +15,7 @@ Build-Depends:
  libssl-dev
 Standards-Version: 4.0.0
 
-Package: libnginx-modsecruity
+Package: libnginx-modsecurity
 Architecture: amd64
 Depends:
  libmodsecurity3
