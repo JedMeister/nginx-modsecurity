@@ -7,7 +7,7 @@ Build-Depends:
  dh-exec,
  libmodsecurity3,
  nginx-light,
- wget,
+ curl,
  build-essential,
  libmodsecurity-dev,
  libpcre3-dev,
