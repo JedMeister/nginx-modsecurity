@@ -1,5 +1,10 @@
 #!/usr/bin/make
 
+all: help
+
+help:
+	@echo 'Simple make file that runs a bash script, which then runs a makefile... :)'
+
 install:
 
 	./install.sh
