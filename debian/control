@@ -21,7 +21,8 @@ Standards-Version: 4.0.0
 Package: libnginx-modsecurity
 Architecture: amd64
 Depends:
- libmodsecurity3
+ libmodsecurity3,
+ modsecurity-crs,
  ${misc:Depends},
  nginx | nginx-light | nginx-full
 Description: Nginx modsecurity - packaged by TurnKey GNU/Linux
